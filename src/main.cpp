@@ -55,6 +55,19 @@ void connectToServer() {
   Serial.println("Connecting to TCP server...");
   while (!ethClient.connect(TCP_HOSTNAME, TCP_PORT))  {
     Serial.println("Connection failed. Reconnecting...");
+    auto link = Ethernet.linkStatus();
+    Serial.print("Link status: ");
+    switch (link) {
+      case Unknown:
+        Serial.println("Unknown");
+        break;
+      case LinkON:
+        Serial.println("ON");
+        break;
+      case LinkOFF:
+        Serial.println("OFF");
+        break;
+    }
     delay(1000);
   }
   Serial.println("Connected to TCP server");
